@@ -22,8 +22,8 @@ jobs:
 
       - name: Install Google Chrome
         run: |
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt install -y ./google-chrome-stable_current_amd64.deb
 
       - name: Cache Maven dependencies
         uses: actions/cache@v4
@@ -33,8 +33,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Install dependencies and run tests
-        run: mvn clean verify
+      - name: Run tests
+        run: mvn clean test
 
       - name: Upload test reports
         if: always()

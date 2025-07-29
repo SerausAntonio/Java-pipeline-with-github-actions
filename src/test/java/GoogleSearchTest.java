@@ -7,6 +7,10 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import io.github.bonigarcia.wdm.WebDriverManager;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -16,16 +20,18 @@ public class GoogleSearchTest {
     public WebDriver driver;
     public WebDriverWait wait;
     @Test
-    public void searchTest(){
-        WebDriverManager.chromedriver().setup();
+    public void searchTest() throws IOException {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new");
         options.addArguments("--disable-gpu");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
 
-        WebDriver driver = new ChromeDriver(options);
+        Path tmpUserDataDir = Files.createTempDirectory("chrome-user-data");
+        options.addArguments("--user-data-dir=" + tmpUserDataDir.toAbsolutePath());
 
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver = new ChromeDriver(options);
 
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
