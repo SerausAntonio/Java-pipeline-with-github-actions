@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -16,12 +17,14 @@ public class GoogleSearchTest {
     public WebDriverWait wait;
     @Test
     public void searchTest(){
+        WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new"); // of "--headless" voor oudere Chrome
+        options.addArguments("--headless=new");
         options.addArguments("--disable-gpu");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
-        driver = new ChromeDriver(options);
+
+        WebDriver driver = new ChromeDriver(options);
 
 
         driver.manage().window().maximize();

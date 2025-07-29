@@ -20,6 +20,11 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
+      - name: Install Google Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+
       - name: Cache Maven dependencies
         uses: actions/cache@v4
         with:
@@ -31,7 +36,7 @@ jobs:
       - name: Install dependencies and run tests
         run: mvn clean verify
 
-      - name: Upload test reports (optioneel)
+      - name: Upload test reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
