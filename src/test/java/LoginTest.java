@@ -29,7 +29,7 @@ public class LoginTest {
         Path tmpUserDataDir = Files.createTempDirectory("chrome-user-data");
         options.addArguments("--user-data-dir=" + tmpUserDataDir.toAbsolutePath());
 
-        WebDriverManager.chromedriver().setup();
+      //  WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver(options);
 
         driver.manage().window().maximize();
